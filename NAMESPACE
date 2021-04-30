@@ -3,6 +3,8 @@
 export("%>%")
 export(LDA_set_user_seeds)
 export(get_rodents_annual)
+export(subset_data_all)
+export(subset_data_one)
 importFrom(LDATS,LDA_msg)
 importFrom(LDATS,check_LDA_set_inputs)
 importFrom(LDATS,package_LDA_set)

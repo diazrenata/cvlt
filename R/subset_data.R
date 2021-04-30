@@ -4,17 +4,15 @@
 #'
 #' @param full_dataset MATSS-style dataset. A list with elements `$abundance`, `$covariates`
 #' @param buffer_size number of timesteps to withold on either side of the test timestep. Defaults 2
+#' @param n_timesteps
 #'
 #' @return a list of ntimesteps lists, if ntimesteps is the number of timesteps in `full_dataset`. each list in the list is the output of `subset_data_one` with the test timestep as one of the timesteps in the full dataset.
 #' @export
 #'
-subset_data_all <- function(full_dataset, use_folds = FALSE, n_timesteps = 2, n_folds = 5, buffer_size = 2) {
 
-  if(!use_folds) {
+subset_data_all <- function(full_dataset, n_timesteps = 2, buffer_size = 2) {
+
     subsetted_data = lapply(1:nrow(full_dataset$abundance), FUN = subset_data_one, full_dataset = full_dataset, buffer_size = buffer_size)
-  }  else{
-    subsetted_data = replicate(n = n_folds, expr = subset_data_one_folds(full_dataset = full_dataset, n_timesteps = n_timesteps, buffer_size = buffer_size), simplify = F)
-  }
 
   return(subsetted_data)
 }

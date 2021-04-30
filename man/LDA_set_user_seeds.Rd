@@ -44,12 +44,6 @@ are proper for \code{LDA_set} (that the table of observations is
 conformable to a matrix of integers, the number of topics is an integer,
 the number of seeds is an integer and the controls list is proper).
 }
-\examples{
-  data(rodents)
-  lda_data <- rodents$document_term_table
-  r_LDA <- LDA_set_user_seeds(lda_data, topics = 2, seed = 2)
-
-}
 \references{
 Blei, D. M., A. Y. Ng, and M. I. Jordan. 2003. Latent Dirichlet
 Allocation. \emph{Journal of Machine Learning Research}
