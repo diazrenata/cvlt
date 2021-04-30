@@ -26,7 +26,7 @@ test_that("portal annual works", {
 
   expect_false(anyNA(portal_annual$abundance))
 
-  expect_true(all(portal_annual$covariates$year == c(1979:2019)))
+  expect_true(all(portal_annual$covariates$year == c(1979:2018)))
 }
 )
 
