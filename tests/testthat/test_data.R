@@ -30,4 +30,24 @@ test_that("portal annual works", {
 }
 )
 
+test_that("subset_data_one works as expected", {
 
+  portal_annual <- get_rodents_annual()
+
+  subset_data_firstyear = subset_data_one(portal_annual, test_timestep = 1, buffer_size = 2)
+
+  subset_data_middleyear = subset_data_one(portal_annual, test_timestep = 10, buffer_size = 2)
+
+  subset_data_lastyear = subset_data_one(portal_annual, test_timestep = 40, buffer_size = 2)
+
+
+}
+)
+
+test_that("subset_data_all works as expected", {
+  portal_annual <- get_rodents_annual()
+
+  all_subsets <- subset_data_all(portal_annual, n_timesteps = 1, buffer_size = 2)
+
+}
+)
