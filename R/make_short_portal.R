@@ -19,7 +19,8 @@ abund_annual <- abund %>%
   dplyr::group_by(year) %>%
   dplyr::summarize_all(sum) %>%
   dplyr::ungroup() %>%
-  dplyr::mutate(year = as.numeric(year))
+  dplyr::mutate(year = as.numeric(year)) %>%
+  dplyr::filter(year <= 2018)
 
 abundance <- dplyr::select(abund_annual, -year)
 covariates <- dplyr::select(abund_annual, year) %>%

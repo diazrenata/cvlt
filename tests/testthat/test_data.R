@@ -29,3 +29,5 @@ test_that("portal annual works", {
   expect_true(all(portal_annual$covariates$year == c(1979:2019)))
 }
 )
+
+
