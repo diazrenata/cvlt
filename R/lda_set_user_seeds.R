@@ -48,11 +48,6 @@
 #'   Models. \emph{Journal of Statistical Software} \strong{40}:13.
 #'   \href{https://www.jstatsoft.org/article/view/v040i13}{link}.
 #'
-#' @examples
-#'   data(rodents)
-#'   lda_data <- rodents$document_term_table
-#'   r_LDA <- LDA_set_user_seeds(lda_data, topics = 2, seed = 2)
-#'
 #' @export
 #' @importFrom LDATS check_LDA_set_inputs LDA_msg prep_LDA_control package_LDA_set
 #' @importFrom topicmodels LDA
