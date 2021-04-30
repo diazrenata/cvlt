@@ -1,0 +1,24 @@
+Package: cvlt
+Type: Package
+Title: Cross validation methods for LDATS
+Version: 0.1.0
+Author: Renata Diaz
+Maintainer: Renata Diaz <renata.diaz@weecology.org>
+Description: Crossvalidation methods for Latent Dirichlet Allocation + change point model analyses.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Imports: 
+    dplyr,
+    ggplot2,
+    here,
+    LDATS,
+    portalr,
+    magrittr,
+    tidyr
+Suggests:
+    testthat
+Depends: 
+    R (>= 2.10)
