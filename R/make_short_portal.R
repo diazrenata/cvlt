@@ -63,4 +63,8 @@ get_plants_annual <- function(census_season = "winter") {
   covariates <- dplyr::select(quadrats_wide, year) %>%
     dplyr::mutate(col2 = "dummycol")
 
+  abund_dat <- list(abundance = abundance,
+                    covariates = covariates)
+
+  return(abund_dat)
   }
