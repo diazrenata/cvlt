@@ -1,4 +1,4 @@
 # cvlt
 Cross-validation methods for LDATS
 
-This is a ~package mostly for internal use right now. It builds on github.com/weecology/LDATS to allow model selection via crossvalidation. RMD is in the process of porting functions developed in diazrenata/ldats2020 into a package so they are stable, documented, and testable before trying to scale analyses up.
+This is a package to extend and improve the performance of [LDATS](https://weecology.github.io/LDATS) when applied to short, high-dimensional timeseries (such as the Breeding Bird Survey). Specifically, it includes functions to implement model selection via leave-one-out crossvalidation, and summary functions for examining the number, timing, and magnitude of community reorganization events. The functions are designed to work with data obtained via the [MATSS package](https://weecology.github.io/MATSS) and to run at scale using [drake](https://ropensci.github.io/drake) or similar pipeline managers. 
