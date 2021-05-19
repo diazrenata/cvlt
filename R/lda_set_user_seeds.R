@@ -1,8 +1,12 @@
-#### COPIED FROM LDATS branch lda-user-seed. This is a modification to the function LDATS::LDA_set to allow the user to choose the seed for the LDA. RMD originally added this function in a branch of weecology/LDATS, but that means that to use it you have to install that branch version of LDATS. It is necessary for this package, so porting it over as part of `cvlt`. This means `cvlt` can depend on the CRAN version of LDATS.
+#### COPIED FROM LDATS branch lda-user-seed.
 
 #' @title Run a set of Latent Dirichlet Allocation models with user-specified seed
 #'
-#' @description For a given dataset consisting of counts of words across
+#' @description This is a modification to the function LDATS::LDA_set to allow the user to choose the seed for the LDA. RMD originally added this function in a branch of weecology/LDATS, but that means that to use it you have to install that branch version of LDATS. It is necessary for this package, so porting it over as part of `cvlt`. This means `cvlt` can depend on the CRAN version of LDATS.
+#'
+#'  From LDATS documentation:
+#'
+#'  For a given dataset consisting of counts of words across
 #'   multiple documents in a corpus, conduct multiple Latent Dirichlet
 #'   Allocation (LDA) models (using the Variational Expectation
 #'   Maximization (VEM) algorithm; Blei \emph{et al.} 2003) to account for [1]

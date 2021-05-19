@@ -31,6 +31,10 @@ defaults in (\code{LDAcontol}, see \code{\link[topicmodels]{LDA}} (but if
 improper, otherwise \code{NULL}.
 }
 \description{
+This is a modification to the function LDATS::LDA_set to allow the user to choose the seed for the LDA. RMD originally added this function in a branch of weecology/LDATS, but that means that to use it you have to install that branch version of LDATS. It is necessary for this package, so porting it over as part of \code{cvlt}. This means \code{cvlt} can depend on the CRAN version of LDATS.
+
+From LDATS documentation:
+
 For a given dataset consisting of counts of words across
 multiple documents in a corpus, conduct multiple Latent Dirichlet
 Allocation (LDA) models (using the Variational Expectation
