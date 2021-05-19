@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Subset data - all subsets — subset_data_all • cvlt</title>
+<title>Get abundance probabilities — get_abund_probabilities • cvlt</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Subset data - all subsets — subset_data_all" />
-<meta property="og:description" content="Wrapper for subset_data_one to create a list of all data subsets using one timestep of test data per subset and a buffer on either side." />
+<meta property="og:title" content="Get abundance probabilities — get_abund_probabilities" />
+<meta property="og:description" content="Get probabilities of abundances, as the multinomial probabilities, for each species at each time step as predicted by a TS model." />
 
 
 
@@ -103,33 +103,49 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Subset data - all subsets</h1>
+    <h1>Get abundance probabilities</h1>
     
-    <div class="hidden name"><code>subset_data_all.Rd</code></div>
+    <div class="hidden name"><code>get_abund_probabilities.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Wrapper for <code>subset_data_one</code> to create a list of all data subsets using one timestep of test data per subset and a buffer on either side.</p>
+    <p>Get probabilities of abundances, as the multinomial probabilities, for each species at each time step as predicted by a TS model.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>subset_data_all</span><span class='op'>(</span><span class='va'>full_dataset</span>, buffer_size <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>get_abund_probabilities</span><span class='op'>(</span>
+  <span class='va'>subsetted_dataset_item</span>,
+  <span class='va'>fitted_lda</span>,
+  <span class='va'>fitted_ts</span>,
+  max_sims <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>full_dataset</th>
-      <td><p>MATSS-style dataset. A list with elements <code>$abundance</code>, <code>$covariates</code></p></td>
+      <th>subsetted_dataset_item</th>
+      <td><p>list with (at least) element <code>$full</code>: unaltered dataset.</p></td>
     </tr>
     <tr>
-      <th>buffer_size</th>
-      <td><p>number of timesteps to withhold on either side of the test timestep. Defaults 2.</p></td>
+      <th>fitted_lda</th>
+      <td><p>LDA fit to either a subsetted or a full dataset</p></td>
+    </tr>
+    <tr>
+      <th>fitted_ts</th>
+      <td><p>TS fit to that LDA</p></td>
+    </tr>
+    <tr>
+      <th>max_sims</th>
+      <td><p>defaults NULL. If supplied, will randomly draw <code>max_sims</code> draws from the posterior and return probabilities just for those. Useful for speeding things up.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a list of ntimesteps lists, if ntimesteps is the number of timesteps in <code>full_dataset</code>. Each list in the list is the output of <code>subset_data_one</code> using one of the timesteps in the full dataset as the test timestep.</p>
+    <p>list of matrices of abundance probabilities for each species (columns) for each timestep (rows), with one list for each draw from the posterior (or <code>max_sims</code>, if supplied).</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Gets one matrix of probabiltiies for each draw from the posterior for estimates of changepoint locations and model parameters (in this case just the intercept).</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

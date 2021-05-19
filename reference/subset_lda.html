@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Subset data - all subsets — subset_data_all • cvlt</title>
+<title>Subset an LDA model — subset_lda • cvlt</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Subset data - all subsets — subset_data_all" />
-<meta property="og:description" content="Wrapper for subset_data_one to create a list of all data subsets using one timestep of test data per subset and a buffer on either side." />
+<meta property="og:title" content="Subset an LDA model — subset_lda" />
+<meta property="og:description" content="Takes an LDA model fit to an ENTIRE dataset and extracts just rows present in the TRAIN data for a subsetted data item." />
 
 
 
@@ -103,33 +103,36 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Subset data - all subsets</h1>
+    <h1>Subset an LDA model</h1>
     
-    <div class="hidden name"><code>subset_data_all.Rd</code></div>
+    <div class="hidden name"><code>subset_lda.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Wrapper for <code>subset_data_one</code> to create a list of all data subsets using one timestep of test data per subset and a buffer on either side.</p>
+    <p>Takes an LDA model fit to an ENTIRE dataset and extracts just rows present in the TRAIN data for a subsetted data item.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>subset_data_all</span><span class='op'>(</span><span class='va'>full_dataset</span>, buffer_size <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>subset_lda</span><span class='op'>(</span><span class='va'>fitted_lda</span>, <span class='va'>subsetted_dataset_item</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>full_dataset</th>
-      <td><p>MATSS-style dataset. A list with elements <code>$abundance</code>, <code>$covariates</code></p></td>
+      <th>fitted_lda</th>
+      <td><p>LDA fit to FULL dataset</p></td>
     </tr>
     <tr>
-      <th>buffer_size</th>
-      <td><p>number of timesteps to withhold on either side of the test timestep. Defaults 2.</p></td>
+      <th>subsetted_dataset_item</th>
+      <td><p>result of subset_data_one, list with <code>$test</code> and <code>$train</code> elements.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a list of ntimesteps lists, if ntimesteps is the number of timesteps in <code>full_dataset</code>. Each list in the list is the output of <code>subset_data_one</code> using one of the timesteps in the full dataset as the test timestep.</p>
+    <p>fitted_lda subset to just the timesteps present in the <code>$train</code> element of <code>subsetted_dataset_item</code>.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Subsets both the topic proportions  and loglikelihood, to maintain the correct dimensions.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

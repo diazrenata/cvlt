@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Subset data - all subsets — subset_data_all • cvlt</title>
+<title>Create control list for set of LDA models — LDA_set_control_cv • cvlt</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,11 @@
 
 
 
-<meta property="og:title" content="Subset data - all subsets — subset_data_all" />
-<meta property="og:description" content="Wrapper for subset_data_one to create a list of all data subsets using one timestep of test data per subset and a buffer on either side." />
+<meta property="og:title" content="Create control list for set of LDA models — LDA_set_control_cv" />
+<meta property="og:description" content="This function provides a simple creation and definition of
+the list used to control the set of LDA models. It is set up to be easy
+to work with the existing control capacity of
+LDA. Copied straight from weecology/LDATS; need it as part of this namespace to work with do.call in LDA_set_user_seeds" />
 
 
 
@@ -103,34 +106,60 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Subset data - all subsets</h1>
+    <h1>Create control list for set of LDA models</h1>
     
-    <div class="hidden name"><code>subset_data_all.Rd</code></div>
+    <div class="hidden name"><code>LDA_set_control_cv.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Wrapper for <code>subset_data_one</code> to create a list of all data subsets using one timestep of test data per subset and a buffer on either side.</p>
+    <p>This function provides a simple creation and definition of
+the list used to control the set of LDA models. It is set up to be easy
+to work with the existing control capacity of
+<code><a href='https://rdrr.io/pkg/topicmodels/man/lda.html'>LDA</a></code>. <strong>Copied straight from weecology/LDATS</strong>; need it as part of this namespace to work with <code>do.call</code> in <code>LDA_set_user_seeds</code></p>
     </div>
 
-    <pre class="usage"><span class='fu'>subset_data_all</span><span class='op'>(</span><span class='va'>full_dataset</span>, buffer_size <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>LDA_set_control_cv</span><span class='op'>(</span>
+  quiet <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  measurer <span class='op'>=</span> <span class='va'>AIC</span>,
+  selector <span class='op'>=</span> <span class='va'>min</span>,
+  iseed <span class='op'>=</span> <span class='fl'>2</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>full_dataset</th>
-      <td><p>MATSS-style dataset. A list with elements <code>$abundance</code>, <code>$covariates</code></p></td>
+      <th>quiet</th>
+      <td><p><code>logical</code> indicator of whether the model should run
+quietly.</p></td>
     </tr>
     <tr>
-      <th>buffer_size</th>
-      <td><p>number of timesteps to withhold on either side of the test timestep. Defaults 2.</p></td>
+      <th>measurer, selector</th>
+      <td><p>Function names for use in evaluation of the LDA
+models. <code>measurer</code> is used to create a value for each model
+and <code>selector</code> operates on the values to choose the model(s) to
+pass on.</p></td>
+    </tr>
+    <tr>
+      <th>iseed</th>
+      <td><p><code>integer</code> initial seed for the model set.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments to be passed to
+<code><a href='https://rdrr.io/pkg/topicmodels/man/lda.html'>LDA</a></code> as a <code>control</code> input.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a list of ntimesteps lists, if ntimesteps is the number of timesteps in <code>full_dataset</code>. Each list in the list is the output of <code>subset_data_one</code> using one of the timesteps in the full dataset as the test timestep.</p>
+    <p><code>list</code> for controlling the LDA model fit.</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>  <span class='fu'>LDA_set_control</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in LDA_set_control(): could not find function "LDA_set_control"</span></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Subset data - all subsets — subset_data_all • cvlt</title>
+<title>Run LDATS on a single dataset subset — ldats_subset_one • cvlt</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Subset data - all subsets — subset_data_all" />
-<meta property="og:description" content="Wrapper for subset_data_one to create a list of all data subsets using one timestep of test data per subset and a buffer on either side." />
+<meta property="og:title" content="Run LDATS on a single dataset subset — ldats_subset_one" />
+<meta property="og:description" content="This function runs on a single subset (e.g. the dataset with timestep 1 as the test timestep). Run fit_ldats_crossval to run this function on every subset." />
 
 
 
@@ -103,33 +103,62 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Subset data - all subsets</h1>
+    <h1>Run LDATS on a single dataset subset</h1>
     
-    <div class="hidden name"><code>subset_data_all.Rd</code></div>
+    <div class="hidden name"><code>ldats_subset_one.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Wrapper for <code>subset_data_one</code> to create a list of all data subsets using one timestep of test data per subset and a buffer on either side.</p>
+    <p>This function runs on a single subset (e.g. the dataset with timestep 1 as the test timestep). Run <code>fit_ldats_crossval</code> to run this function on every subset.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>subset_data_all</span><span class='op'>(</span><span class='va'>full_dataset</span>, buffer_size <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>ldats_subset_one</span><span class='op'>(</span>
+  <span class='va'>subsetted_dataset_item</span>,
+  <span class='va'>k</span>,
+  <span class='va'>seed</span>,
+  <span class='va'>cpts</span>,
+  <span class='va'>nit</span>,
+  return_full <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>full_dataset</th>
-      <td><p>MATSS-style dataset. A list with elements <code>$abundance</code>, <code>$covariates</code></p></td>
+      <th>subsetted_dataset_item</th>
+      <td><p>result of subset_data_one</p></td>
     </tr>
     <tr>
-      <th>buffer_size</th>
-      <td><p>number of timesteps to withhold on either side of the test timestep. Defaults 2.</p></td>
+      <th>k</th>
+      <td><p>ntopics for lda</p></td>
+    </tr>
+    <tr>
+      <th>seed</th>
+      <td><p>seed for lda. only use even numbers.</p></td>
+    </tr>
+    <tr>
+      <th>cpts</th>
+      <td><p>how many changepoints for ts?</p></td>
+    </tr>
+    <tr>
+      <th>nit</th>
+      <td><p>how many iterations? (draws from posterior)</p></td>
+    </tr>
+    <tr>
+      <th>return_full</th>
+      <td><p>return fitted model objects and abundance probabilities in addition to logliks. Can be useful for diagnostics, but hogs memory.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a list of ntimesteps lists, if ntimesteps is the number of timesteps in <code>full_dataset</code>. Each list in the list is the output of <code>subset_data_one</code> using one of the timesteps in the full dataset as the test timestep.</p>
+    <p>list. subsetted_dataset_item with the following appended: If <code>return_full</code>, fitted_lda; fitted_ts; abund_probabilities, otherwise NULL; test_logliks, model_info</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>First, fits an LDA to the <em>full</em> (not subsetted) dataset. Then splits the matrix of topic proportions (<code>gamma</code> matrix) for that LDA into training/test subsets to match the subset. (The LDA is fit to the full dataset, because LDAs fit to different subsets cannot be recombined in a logical way).</p>
+<p>Then fits a TS model to the <em>subsetted</em> <code>gamma</code> matrix, with the specified number of iterations &amp; changepoints.</p>
+<p>Then extracts from that TS model the predicted abundances (multinomial probability distribution of species abundances) for each timestep. Because of the Bayesian component of the changepoint model, there is a matrix of predicted abundances per timestep <em>for every draw from the posterior</em>, so <code>nit</code> matrices. Then calculates the loglikelihood of the test timestep given these predicted probabilities. There are <code>nit</code> estimates of the loglikelihood.</p>
+<p>Returns the subsetted dataset item list provided, with the following appendend: The LDA, TS, and abundance probabilities (if <code>return_full = TRUE</code>), or as NULL otherwise; the vector of loglikelihoods for the test timestep for each iteration; a list <code>model_info</code> with the model specifications <code>(k, seed, cpts, nit)</code></p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

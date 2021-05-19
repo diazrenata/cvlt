@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Subset data - all subsets — subset_data_all • cvlt</title>
+<title>Get theta matrix for one draw from posterior — multinom_theta • cvlt</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Subset data - all subsets — subset_data_all" />
-<meta property="og:description" content="Wrapper for subset_data_one to create a list of all data subsets using one timestep of test data per subset and a buffer on either side." />
+<meta property="og:title" content="Get theta matrix for one draw from posterior — multinom_theta" />
+<meta property="og:description" content="The theta matrix is the predicted topic proportions." />
 
 
 
@@ -103,33 +103,37 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Subset data - all subsets</h1>
+    <h1>Get theta matrix for one draw from posterior</h1>
     
-    <div class="hidden name"><code>subset_data_all.Rd</code></div>
+    <div class="hidden name"><code>multinom_theta.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Wrapper for <code>subset_data_one</code> to create a list of all data subsets using one timestep of test data per subset and a buffer on either side.</p>
+    <p>The theta matrix is the predicted topic proportions.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>subset_data_all</span><span class='op'>(</span><span class='va'>full_dataset</span>, buffer_size <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>multinom_theta</span><span class='op'>(</span><span class='va'>subsetted_dataset_item</span>, <span class='va'>ts_model</span>, sim <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>full_dataset</th>
-      <td><p>MATSS-style dataset. A list with elements <code>$abundance</code>, <code>$covariates</code></p></td>
+      <th>subsetted_dataset_item</th>
+      <td><p>list with (at least) element <code>$full</code>: unaltered dataset.</p></td>
     </tr>
     <tr>
-      <th>buffer_size</th>
-      <td><p>number of timesteps to withhold on either side of the test timestep. Defaults 2.</p></td>
+      <th>ts_model</th>
+      <td><p>TS fit to either the full dataset or a subset</p></td>
+    </tr>
+    <tr>
+      <th>sim</th>
+      <td><p>integer, which draw from the posterior to extract the thetas for</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a list of ntimesteps lists, if ntimesteps is the number of timesteps in <code>full_dataset</code>. Each list in the list is the output of <code>subset_data_one</code> using one of the timesteps in the full dataset as the test timestep.</p>
+    <p>matrix of predicted topic proportions (columns) for each timestep in the full dataset (rows)</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
