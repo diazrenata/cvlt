@@ -35,7 +35,3 @@ the list used to control the set of LDA models. It is set up to be easy
 to work with the existing control capacity of
 \code{\link[topicmodels]{LDA}}. \strong{Copied straight from weecology/LDATS}; need it as part of this namespace to work with \code{do.call} in \code{LDA_set_user_seeds}
 }
-\examples{
-  LDA_set_control()
-
-}

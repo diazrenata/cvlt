@@ -93,9 +93,6 @@ LDA_set_user_seeds <- function(document_term_table, topics = 2, seed = 1,
 #'
 #' @return \code{list} for controlling the LDA model fit.
 #'
-#' @examples
-#'   LDA_set_control()
-#'
 #' @export
 #'
 LDA_set_control_cv <- function(quiet = FALSE, measurer = AIC, selector = min,

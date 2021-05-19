@@ -47,7 +47,7 @@ test_that("subset_data_one works as expected", {
 test_that("subset_data_all works as expected", {
   portal_annual <- get_rodents_annual()
 
-  all_subsets <- subset_data_all(portal_annual, n_timesteps = 1, buffer_size = 2)
+  all_subsets <- subset_data_all(portal_annual, buffer_size = 2)
 
 }
 )

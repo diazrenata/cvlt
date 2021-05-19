@@ -170,54 +170,54 @@ multinom_theta <- function (subsetted_dataset_item, ts_model, sim = 1)
   Theta
 }
 
-#' #' Get test loglikelihood (all)
-#' #'
-#' #' Wrapper for get_one_test_loglik. Gets loglikelihood estimate for every draw from the posterior.
-#' #'
-#' #' @param subsetted_dataset_item result of subset_data_one
-#' #' @param abund_probabilities list of abund_probabilities; one element for every draw from posterior
-#' #'
-#' #' @return vector of loglikelihood of test data given every abund_probability estimate
-#' #' @export
-#' #'
-#' get_test_loglik <- function(
-#'   subsetted_dataset_item,
-#'   abund_probabilities
-#' ) {
+#' Get test loglikelihood (all)
 #'
-#'   test_logliks <- lapply(abund_probabilities, FUN = get_one_test_loglik, subsetted_dataset_item = subsetted_dataset_item)
+#' Wrapper for `get_one_test_loglik.` Gets loglikelihood estimate of the test timestep for every draw from the posterior (or every draw supplied via `abund_probabilities`).
 #'
-#'   return(unlist(test_logliks))
+#' @param subsetted_dataset_item list with - at least - elements `test` (of abundance matrix and covaraites for test timestep) and `test_timestep` (the row number, of the full dataset, of the test timestep).
+#' @param abund_probabilities list of abund_probabilities; with an element for every draw from the posterior being considered.
 #'
-#' }
+#' @return vector of loglikelihood of test data given every abund_probability estimate
+#' @export
 #'
+get_test_loglik <- function(
+  subsetted_dataset_item,
+  abund_probabilities
+) {
+
+  test_logliks <- lapply(abund_probabilities, FUN = get_one_test_loglik, subsetted_dataset_item = subsetted_dataset_item)
+
+  return(unlist(test_logliks))
+
+}
+
+
+#' Get test row logliklihood (for one draw)
 #'
-#' #' Get test row logliklihood (for one draw)
-#' #'
-#' #' Get loglikelihood of observed abundances for test row given abundance probabilties. For one draw from the posterior
-#' #'
-#' #' @param subsetted_dataset_item result of subset_data_one
-#' #' @param abund_probabilities_one ONE matrix of abundance probabilities
-#' #'
-#' #' @return loglikelihood of obs abundances in test row given abund_probabilities
-#' #' @export
-#' #'
-#' get_one_test_loglik <- function(
-#'   subsetted_dataset_item,
-#'   abund_probabilities_one
-#' ) {
+#' Get loglikelihood of observed abundances for test timestep given predicted abundance probabilities, for a single draw from the posterior.
 #'
-#'   test_dat <- subsetted_dataset_item$test$abundance
+#' @param subsetted_dataset_item result of subset_data_one
+#' @param abund_probabilities_one ONE matrix of abundance probabilities
 #'
-#'   test_row_number <- subsetted_dataset_item$test_timestep
+#' @return loglikelihood of obs abundances in test row given abund_probabilities
+#' @export
 #'
-#'   test_logliks <- vector()
-#'
-#'   for(i in 1:length(test_row_number)) {
-#'     test_logliks <- c(test_logliks, dmultinom(x = test_dat[i, ], prob = abund_probabilities_one[test_row_number[i],], log = TRUE))
-#'   }
-#'
-#'   test_loglik <- sum(test_logliks)
-#'
-#'   return(test_loglik)
-#' }
+get_one_test_loglik <- function(
+  subsetted_dataset_item,
+  abund_probabilities_one
+) {
+
+  test_dat <- subsetted_dataset_item$test$abundance
+
+  test_row_number <- subsetted_dataset_item$test_timestep
+
+  test_logliks <- vector()
+
+  for(i in 1:length(test_row_number)) {
+    test_logliks <- c(test_logliks, dmultinom(x = test_dat[i, ], prob = abund_probabilities_one[test_row_number[i],], log = TRUE))
+  }
+
+  test_loglik <- sum(test_logliks)
+
+  return(test_loglik)
+}
