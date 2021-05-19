@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create control list for set of LDA models — LDA_set_control_cv • cvlt</title>
+<title>Get test loglikelihood (all) — get_test_loglik • cvlt</title>
 
 
 <!-- jquery -->
@@ -39,11 +39,8 @@
 
 
 
-<meta property="og:title" content="Create control list for set of LDA models — LDA_set_control_cv" />
-<meta property="og:description" content="This function provides a simple creation and definition of
-the list used to control the set of LDA models. It is set up to be easy
-to work with the existing control capacity of
-LDA. Copied straight from weecology/LDATS; need it as part of this namespace to work with do.call in LDA_set_user_seeds" />
+<meta property="og:title" content="Get test loglikelihood (all) — get_test_loglik" />
+<meta property="og:description" content="Wrapper for get_one_test_loglik. Gets loglikelihood estimate of the test timestep for every draw from the posterior (or every draw supplied via abund_probabilities)." />
 
 
 
@@ -106,55 +103,33 @@ LDA. Copied straight from weecology/LDATS; need it as part of this namespace to 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create control list for set of LDA models</h1>
+    <h1>Get test loglikelihood (all)</h1>
     
-    <div class="hidden name"><code>LDA_set_control_cv.Rd</code></div>
+    <div class="hidden name"><code>get_test_loglik.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function provides a simple creation and definition of
-the list used to control the set of LDA models. It is set up to be easy
-to work with the existing control capacity of
-<code><a href='https://rdrr.io/pkg/topicmodels/man/lda.html'>LDA</a></code>. <strong>Copied straight from weecology/LDATS</strong>; need it as part of this namespace to work with <code>do.call</code> in <code>LDA_set_user_seeds</code></p>
+    <p>Wrapper for <code>get_one_test_loglik.</code> Gets loglikelihood estimate of the test timestep for every draw from the posterior (or every draw supplied via <code>abund_probabilities</code>).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>LDA_set_control_cv</span><span class='op'>(</span>
-  quiet <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  measurer <span class='op'>=</span> <span class='va'>AIC</span>,
-  selector <span class='op'>=</span> <span class='va'>min</span>,
-  iseed <span class='op'>=</span> <span class='fl'>2</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>get_test_loglik</span><span class='op'>(</span><span class='va'>subsetted_dataset_item</span>, <span class='va'>abund_probabilities</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>quiet</th>
-      <td><p><code>logical</code> indicator of whether the model should run
-quietly.</p></td>
+      <th>subsetted_dataset_item</th>
+      <td><p>list with - at least - elements <code>test</code> (of abundance matrix and covaraites for test timestep) and <code>test_timestep</code> (the row number, of the full dataset, of the test timestep).</p></td>
     </tr>
     <tr>
-      <th>measurer, selector</th>
-      <td><p>Function names for use in evaluation of the LDA
-models. <code>measurer</code> is used to create a value for each model
-and <code>selector</code> operates on the values to choose the model(s) to
-pass on.</p></td>
-    </tr>
-    <tr>
-      <th>iseed</th>
-      <td><p><code>integer</code> initial seed for the model set.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Additional arguments to be passed to
-<code><a href='https://rdrr.io/pkg/topicmodels/man/lda.html'>LDA</a></code> as a <code>control</code> input.</p></td>
+      <th>abund_probabilities</th>
+      <td><p>list of abund_probabilities; with an element for every draw from the posterior being considered.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>list</code> for controlling the LDA model fit.</p>
+    <p>vector of loglikelihood of test data given every abund_probability estimate</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
