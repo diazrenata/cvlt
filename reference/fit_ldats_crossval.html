@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get test row logliklihood (for one draw) — get_one_test_loglik • cvlt</title>
+<title>Run LDATs on a dataset using crossvalidation — fit_ldats_crossval • cvlt</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Get test row logliklihood (for one draw) — get_one_test_loglik" />
-<meta property="og:description" content="Get loglikelihood of observed abundances for test timestep given predicted abundance probabilities, for a single draw from the posterior." />
+<meta property="og:title" content="Run LDATs on a dataset using crossvalidation — fit_ldats_crossval" />
+<meta property="og:description" content="Top-level wrapper to subset a dataset and fit LDATS to the subsets." />
 
 
 
@@ -103,33 +103,49 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get test row logliklihood (for one draw)</h1>
+    <h1>Run LDATs on a dataset using crossvalidation</h1>
     
-    <div class="hidden name"><code>get_one_test_loglik.Rd</code></div>
+    <div class="hidden name"><code>fit_ldats_crossval.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Get loglikelihood of observed abundances for test timestep given predicted abundance probabilities, for a single draw from the posterior.</p>
+    <p>Top-level wrapper to subset a dataset and fit LDATS to the subsets.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_one_test_loglik</span><span class='op'>(</span><span class='va'>subsetted_dataset_item</span>, <span class='va'>abund_probabilities_one</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>fit_ldats_crossval</span><span class='op'>(</span><span class='va'>dataset</span>, buffer <span class='op'>=</span> <span class='fl'>2</span>, <span class='va'>k</span>, <span class='va'>seed</span>, <span class='va'>cpts</span>, <span class='va'>nit</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>subsetted_dataset_item</th>
-      <td><p>list with - at least - elements <code>test</code> (of abundance matrix and covaraites for test timestep) and <code>test_timestep</code> (the row number, of the full dataset, of the test timestep).</p></td>
+      <th>dataset</th>
+      <td><p>MATSS-style dataset (list with <code>$abundance</code> and <code>$covariates</code>)</p></td>
     </tr>
     <tr>
-      <th>abund_probabilities_one</th>
-      <td><p>ONE matrix of abundance probabilities</p></td>
+      <th>buffer</th>
+      <td><p>number of timesteps to withold on either side of the test timestep, default 2</p></td>
+    </tr>
+    <tr>
+      <th>k</th>
+      <td><p>integer number of topics</p></td>
+    </tr>
+    <tr>
+      <th>seed</th>
+      <td><p>integer seed to use to run LDA</p></td>
+    </tr>
+    <tr>
+      <th>cpts</th>
+      <td><p>integer number of changepoints</p></td>
+    </tr>
+    <tr>
+      <th>nit</th>
+      <td><p>integer number of iterations for the changepoint model. 100 is fast but will not find the global optimum, 1000 gets closer but takes time.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>numeric, loglikelihood of the observed abundances from the test timestep given abund_probabilities</p>
+    <p>list of lists. Each element is the result of running <code>ldats_subset_one</code> on one subset of the original dataset.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
