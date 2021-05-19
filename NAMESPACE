@@ -3,6 +3,7 @@
 export("%>%")
 export(LDA_set_control_cv)
 export(LDA_set_user_seeds)
+export(fit_ldats_crossval)
 export(get_abund_probabilities)
 export(get_one_test_loglik)
 export(get_plants_annual)

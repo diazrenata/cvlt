@@ -14,17 +14,17 @@ ldats_subset_one(
 )
 }
 \arguments{
-\item{subsetted_dataset_item}{result of subset_data_one}
+\item{subsetted_dataset_item}{Result of subset_data_one, list with elements \verb{$full}, \verb{$train}, \verb{$test}, \verb{$test_timestep}}
 
-\item{k}{ntopics for lda}
+\item{k}{integer Number of topics for the LDA model.}
 
-\item{seed}{seed for lda. only use even numbers.}
+\item{seed}{integer Seed for running LDA model. Only use even numbers (odd numbers duplicate adjacent evens).}
 
-\item{cpts}{how many changepoints for ts?}
+\item{cpts}{integer How many changepoints for ts?}
 
-\item{nit}{how many iterations? (draws from posterior)}
+\item{nit}{integer How many iterations? (draws from posterior)}
 
-\item{return_full}{return fitted model objects and abundance probabilities in addition to logliks. Can be useful for diagnostics, but hogs memory.}
+\item{return_full}{logical Whether to return fitted model objects and abundance probabilities in addition to logliks. Can be useful for diagnostics, but hogs memory. Default FALSE.}
 }
 \value{
 list. subsetted_dataset_item with the following appended: If \code{return_full}, fitted_lda; fitted_ts; abund_probabilities, otherwise NULL; test_logliks, model_info

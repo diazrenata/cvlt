@@ -1,15 +1,22 @@
-# fit_ldats_crossval <- function(dataset, use_folds = F, n_folds = 5, n_timesteps = 2, buffer = 2, k, seed, cpts, nit, fit_to_train = FALSE, fold_seed = 1977) {
-#   if(!is.null(fold_seed)) {
-#     set.seed(fold_seed)
-#   }
-#
-#   all_subsets <- subset_data_all(dataset, use_folds = use_folds, n_folds = n_folds, n_timesteps = n_timesteps, buffer_size = buffer)
-#
-#   all_ldats_fits <- lapply(all_subsets, FUN = ldats_subset_one, k = k, seed = seed, cpts = cpts, nit = nit, fit_to_train = fit_to_train)
-#
-#   return(all_ldats_fits)
-# }
-#
-#
-#
-#
+#' Run LDATs on a dataset using crossvalidation
+#'
+#' Top-level wrapper to subset a dataset and fit LDATS to the subsets.
+#'
+#' @param dataset MATSS-style dataset (list with `$abundance` and `$covariates`)
+#' @param buffer number of timesteps to withold on either side of the test timestep, default 2
+#' @param k integer number of topics
+#' @param seed integer seed to use to run LDA
+#' @param cpts integer number of changepoints
+#' @param nit integer number of iterations for the changepoint model. 100 is fast but will not find the global optimum, 1000 gets closer but takes time.
+#'
+#' @return list of lists. Each element is the result of running `ldats_subset_one` on one subset of the original dataset.
+#' @export
+#'
+fit_ldats_crossval <- function(dataset, buffer = 2, k, seed, cpts, nit) {
+
+  all_subsets <- subset_data_all(dataset, buffer_size = buffer)
+
+  all_ldats_fits <- lapply(all_subsets, FUN = ldats_subset_one, k = k, seed = seed, cpts = cpts, nit = nit)
+
+  return(all_ldats_fits)
+}

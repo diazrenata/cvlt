@@ -196,10 +196,10 @@ get_test_loglik <- function(
 #'
 #' Get loglikelihood of observed abundances for test timestep given predicted abundance probabilities, for a single draw from the posterior.
 #'
-#' @param subsetted_dataset_item result of subset_data_one
+#' @param subsetted_dataset_item list with - at least - elements `test` (of abundance matrix and covaraites for test timestep) and `test_timestep` (the row number, of the full dataset, of the test timestep).
 #' @param abund_probabilities_one ONE matrix of abundance probabilities
 #'
-#' @return loglikelihood of obs abundances in test row given abund_probabilities
+#' @return numeric, loglikelihood of the observed abundances from the test timestep given abund_probabilities
 #' @export
 #'
 get_one_test_loglik <- function(

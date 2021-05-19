@@ -7,12 +7,12 @@
 get_one_test_loglik(subsetted_dataset_item, abund_probabilities_one)
 }
 \arguments{
-\item{subsetted_dataset_item}{result of subset_data_one}
+\item{subsetted_dataset_item}{list with - at least - elements \code{test} (of abundance matrix and covaraites for test timestep) and \code{test_timestep} (the row number, of the full dataset, of the test timestep).}
 
 \item{abund_probabilities_one}{ONE matrix of abundance probabilities}
 }
 \value{
-loglikelihood of obs abundances in test row given abund_probabilities
+numeric, loglikelihood of the observed abundances from the test timestep given abund_probabilities
 }
 \description{
 Get loglikelihood of observed abundances for test timestep given predicted abundance probabilities, for a single draw from the posterior.

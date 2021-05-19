@@ -126,27 +126,27 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>subsetted_dataset_item</th>
-      <td><p>result of subset_data_one</p></td>
+      <td><p>Result of subset_data_one, list with elements <code>$full</code>, <code>$train</code>, <code>$test</code>, <code>$test_timestep</code></p></td>
     </tr>
     <tr>
       <th>k</th>
-      <td><p>ntopics for lda</p></td>
+      <td><p>integer Number of topics for the LDA model.</p></td>
     </tr>
     <tr>
       <th>seed</th>
-      <td><p>seed for lda. only use even numbers.</p></td>
+      <td><p>integer Seed for running LDA model. Only use even numbers (odd numbers duplicate adjacent evens).</p></td>
     </tr>
     <tr>
       <th>cpts</th>
-      <td><p>how many changepoints for ts?</p></td>
+      <td><p>integer How many changepoints for ts?</p></td>
     </tr>
     <tr>
       <th>nit</th>
-      <td><p>how many iterations? (draws from posterior)</p></td>
+      <td><p>integer How many iterations? (draws from posterior)</p></td>
     </tr>
     <tr>
       <th>return_full</th>
-      <td><p>return fitted model objects and abundance probabilities in addition to logliks. Can be useful for diagnostics, but hogs memory.</p></td>
+      <td><p>logical Whether to return fitted model objects and abundance probabilities in addition to logliks. Can be useful for diagnostics, but hogs memory. Default FALSE.</p></td>
     </tr>
     </table>
 

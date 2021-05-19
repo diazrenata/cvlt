@@ -28,3 +28,10 @@ abund_probabilities <- get_abund_probabilities(
   subsetted_lda,
   fitted_ts
 )
+
+
+# Calculate loglikelihood of test timestep for each draw from the posterior
+test_logliks  <- get_test_loglik(
+  subsetted_dataset_item,
+  abund_probabilities
+)

@@ -12,12 +12,12 @@
 #'
 #'
 #'
-#' @param subsetted_dataset_item result of subset_data_one
-#' @param k ntopics for lda
-#' @param seed seed for lda. only use even numbers.
-#' @param cpts how many changepoints for ts?
-#' @param nit how many iterations? (draws from posterior)
-#' @param return_full return fitted model objects and abundance probabilities in addition to logliks. Can be useful for diagnostics, but hogs memory.
+#' @param subsetted_dataset_item Result of subset_data_one, list with elements `$full`, `$train`, `$test`, `$test_timestep`
+#' @param k integer Number of topics for the LDA model.
+#' @param seed integer Seed for running LDA model. Only use even numbers (odd numbers duplicate adjacent evens).
+#' @param cpts integer How many changepoints for ts?
+#' @param nit integer How many iterations? (draws from posterior)
+#' @param return_full logical Whether to return fitted model objects and abundance probabilities in addition to logliks. Can be useful for diagnostics, but hogs memory. Default FALSE.
 #'
 #' @return list. subsetted_dataset_item with the following appended: If `return_full`, fitted_lda; fitted_ts; abund_probabilities, otherwise NULL; test_logliks, model_info
 #' @export
