@@ -10,5 +10,5 @@ get_rodents_annual()
 list of abundance and covariates in \code{MATSS} format
 }
 \description{
-Gets Portal control rodents, summarized as annual sums. For methods development.
+Gets Portal control rodents, summarized as annual sums.
 }

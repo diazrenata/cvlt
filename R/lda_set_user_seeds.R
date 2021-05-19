@@ -49,13 +49,13 @@
 #'   \href{https://www.jstatsoft.org/article/view/v040i13}{link}.
 #'
 #' @export
-#' @importFrom LDATS check_LDA_set_inputs LDA_msg prep_LDA_control package_LDA_set
+#' @importFrom LDATS check_LDA_set_inputs LDA_msg prep_LDA_control package_LDA_set LDA_set_control
 #' @importFrom topicmodels LDA
 LDA_set_user_seeds <- function(document_term_table, topics = 2, seed = 1,
                                control = list()){
   nseeds = length(seed)
   LDATS::check_LDA_set_inputs(document_term_table, topics, nseeds = nseeds, control)
-  control <- do.call("LDA_set_control", control)
+  control <- do.call("LDA_set_control_cv", control)
   mod_topics <- rep(topics, each = length(seq(2, length(seed) * 2, 2)))
   iseed <- seed
   mod_seeds <- rep(seq(iseed, iseed + (nseeds - 1)* 2, 2), length(topics))
@@ -68,4 +68,38 @@ LDA_set_user_seeds <- function(document_term_table, topics = 2, seed = 1,
                      control = control_i)
   }
   LDATS::package_LDA_set(mods, mod_topics, mod_seeds)
+}
+
+
+#' @title Create control list for set of LDA models
+#'
+#' @description This function provides a simple creation and definition of
+#'   the list used to control the set of LDA models. It is set up to be easy
+#'   to work with the existing control capacity of
+#'   \code{\link[topicmodels]{LDA}}. **Copied straight from weecology/LDATS**; need it as part of this namespace to work with `do.call` in `LDA_set_user_seeds`
+#'
+#' @param quiet \code{logical} indicator of whether the model should run
+#'   quietly.
+#'
+#' @param measurer,selector Function names for use in evaluation of the LDA
+#'   models. \code{measurer} is used to create a value for each model
+#'   and \code{selector} operates on the values to choose the model(s) to
+#'   pass on.
+#'
+#' @param iseed \code{integer} initial seed for the model set.
+#'
+#' @param ... Additional arguments to be passed to
+#'   \code{\link[topicmodels]{LDA}} as a \code{control} input.
+#'
+#' @return \code{list} for controlling the LDA model fit.
+#'
+#' @examples
+#'   LDA_set_control()
+#'
+#' @export
+#'
+LDA_set_control_cv <- function(quiet = FALSE, measurer = AIC, selector = min,
+                            iseed = 2, ...){
+  list(quiet = quiet, measurer = measurer, selector = selector,
+       iseed = iseed, ...)
 }

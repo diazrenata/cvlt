@@ -7,11 +7,11 @@
 get_plants_annual(census_season = "winter")
 }
 \arguments{
-\item{census_season}{"winter" or summmer}
+\item{census_season}{"winter" or "summer"}
 }
 \value{
-ready for ldats
+MATSS-style dataset: list with elements $abundance and $covariates.
 }
 \description{
-Get Portal plants
+Get abundance data for winter or summer annuals on control plots at Portal, formatted for LDATS.
 }

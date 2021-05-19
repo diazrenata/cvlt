@@ -4,18 +4,16 @@
 \alias{subset_data_all}
 \title{Subset data - all subsets}
 \usage{
-subset_data_all(full_dataset, n_timesteps = 2, buffer_size = 2)
+subset_data_all(full_dataset, buffer_size = 2)
 }
 \arguments{
 \item{full_dataset}{MATSS-style dataset. A list with elements \verb{$abundance}, \verb{$covariates}}
 
-\item{n_timesteps}{}
-
-\item{buffer_size}{number of timesteps to withold on either side of the test timestep. Defaults 2}
+\item{buffer_size}{number of timesteps to withhold on either side of the test timestep. Defaults 2.}
 }
 \value{
-a list of ntimesteps lists, if ntimesteps is the number of timesteps in \code{full_dataset}. each list in the list is the output of \code{subset_data_one} with the test timestep as one of the timesteps in the full dataset.
+a list of ntimesteps lists, if ntimesteps is the number of timesteps in \code{full_dataset}. Each list in the list is the output of \code{subset_data_one} using one of the timesteps in the full dataset as the test timestep.
 }
 \description{
-Wrapper for \code{subset_data_one} to create a list of all data subsets using 1 timestep of test data per subset and a buffer on either side
+Wrapper for \code{subset_data_one} to create a list of all data subsets using one timestep of test data per subset and a buffer on either side.
 }

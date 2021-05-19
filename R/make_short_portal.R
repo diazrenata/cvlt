@@ -1,6 +1,6 @@
 #' Get Portal rodent data annually
 #'
-#' Gets Portal control rodents, summarized as annual sums. For methods development.
+#' Gets Portal control rodents, summarized as annual sums.
 #'
 #' @return list of abundance and covariates in `MATSS` format
 #' @export
@@ -35,9 +35,11 @@ return(abund_dat)
 
 #' Get Portal plants
 #'
-#' @param census_season "winter" or summmer
+#' Get abundance data for winter or summer annuals on control plots at Portal, formatted for LDATS.
 #'
-#' @return ready for ldats
+#' @param census_season "winter" or "summer"
+#'
+#' @return MATSS-style dataset: list with elements $abundance and $covariates.
 #' @export
 #'
 #' @importFrom portalr plant_abundance

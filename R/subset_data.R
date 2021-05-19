@@ -1,16 +1,15 @@
 #' Subset data - all subsets
 #'
-#' Wrapper for `subset_data_one` to create a list of all data subsets using 1 timestep of test data per subset and a buffer on either side
+#' Wrapper for `subset_data_one` to create a list of all data subsets using one timestep of test data per subset and a buffer on either side.
 #'
 #' @param full_dataset MATSS-style dataset. A list with elements `$abundance`, `$covariates`
-#' @param buffer_size number of timesteps to withold on either side of the test timestep. Defaults 2
-#' @param n_timesteps
+#' @param buffer_size number of timesteps to withhold on either side of the test timestep. Defaults 2.
 #'
-#' @return a list of ntimesteps lists, if ntimesteps is the number of timesteps in `full_dataset`. each list in the list is the output of `subset_data_one` with the test timestep as one of the timesteps in the full dataset.
+#' @return a list of ntimesteps lists, if ntimesteps is the number of timesteps in `full_dataset`. Each list in the list is the output of `subset_data_one` using one of the timesteps in the full dataset as the test timestep.
 #' @export
 #'
 
-subset_data_all <- function(full_dataset, n_timesteps = 2, buffer_size = 2) {
+subset_data_all <- function(full_dataset, buffer_size = 2) {
 
     subsetted_data = lapply(1:nrow(full_dataset$abundance), FUN = subset_data_one, full_dataset = full_dataset, buffer_size = buffer_size)
 
