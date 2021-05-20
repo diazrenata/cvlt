@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • cvlt</title>
+<title>Run best-fitting model — run_best_model • cvlt</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,8 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Run best-fitting model — run_best_model" />
+<meta property="og:description" content="Run the LDATS model matching hte best configuration for a dataset" />
 
 
 
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -100,138 +101,45 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Run best-fitting model</h1>
+    
+    <div class="hidden name"><code>run_best_model.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Run the LDATS model matching hte best configuration for a dataset</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>run_best_model</span><span class='op'>(</span><span class='va'>dataset</span>, <span class='va'>selected_config</span>, nit <span class='op'>=</span> <span class='fl'>1000</span>, cpt_seed <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="LDA_set_control_cv.html">LDA_set_control_cv()</a></code> </p>
-        </td>
-        <td><p>Create control list for set of LDA models</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="LDA_set_user_seeds.html">LDA_set_user_seeds()</a></code> </p>
-        </td>
-        <td><p>Run a set of Latent Dirichlet Allocation models with user-specified seed</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="fit_ldats_crossval.html">fit_ldats_crossval()</a></code> </p>
-        </td>
-        <td><p>Run LDATs on a dataset using crossvalidation</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="fit_multiple_ldats_crossval.html">fit_multiple_ldats_crossval()</a></code> </p>
-        </td>
-        <td><p>Fit multiple LDATS crossval models</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_abund_probabilities.html">get_abund_probabilities()</a></code> </p>
-        </td>
-        <td><p>Get abundance probabilities</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_one_test_loglik.html">get_one_test_loglik()</a></code> </p>
-        </td>
-        <td><p>Get test row logliklihood (for one draw)</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_plants_annual.html">get_plants_annual()</a></code> </p>
-        </td>
-        <td><p>Get Portal plants</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_rodents_annual.html">get_rodents_annual()</a></code> </p>
-        </td>
-        <td><p>Get Portal rodent data annually</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_test_loglik.html">get_test_loglik()</a></code> </p>
-        </td>
-        <td><p>Get test loglikelihood (all)</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ldats_subset_one.html">ldats_subset_one()</a></code> </p>
-        </td>
-        <td><p>Run LDATS on a single dataset subset</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="multinom_theta.html">multinom_theta()</a></code> </p>
-        </td>
-        <td><p>Get theta matrix for one draw from posterior</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="run_best_model.html">run_best_model()</a></code> </p>
-        </td>
-        <td><p>Run best-fitting model</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="select_cvlt.html">select_cvlt()</a></code> </p>
-        </td>
-        <td><p>Select simplest good model</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="subset_data_all.html">subset_data_all()</a></code> </p>
-        </td>
-        <td><p>Subset data - all subsets</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="subset_data_one.html">subset_data_one()</a></code> </p>
-        </td>
-        <td><p>Subset data - one subset</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="subset_lda.html">subset_lda()</a></code> </p>
-        </td>
-        <td><p>Subset an LDA model</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="summarize_ldats_fit.html">summarize_ldats_fit()</a></code> </p>
-        </td>
-        <td><p>Summarize LDATS fits</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>dataset</th>
+      <td><p>dataset</p></td>
+    </tr>
+    <tr>
+      <th>selected_config</th>
+      <td><p>result of select_cvlt; dataframe with 1 row of <code>k</code>, <code>lda_seed</code>, <code>cpts</code></p></td>
+    </tr>
+    <tr>
+      <th>nit</th>
+      <td><p>default 1000, nit</p></td>
+    </tr>
+    <tr>
+      <th>cpt_seed</th>
+      <td><p>optionally pass a seed to the cpt model, default NULL</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>list with dataset, config, LDA, and TS models</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
