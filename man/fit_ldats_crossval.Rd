@@ -4,7 +4,18 @@
 \alias{fit_ldats_crossval}
 \title{Run LDATs on a dataset using crossvalidation}
 \usage{
-fit_ldats_crossval(dataset, buffer = 2, k, seed, cpts, nit)
+fit_ldats_crossval(
+  dataset,
+  buffer = 2,
+  k,
+  lda_seed,
+  cpts,
+  nit,
+  cpt_seed = NULL,
+  return_full = FALSE,
+  return_fits = FALSE,
+  summarize_ll = TRUE
+)
 }
 \arguments{
 \item{dataset}{MATSS-style dataset (list with \verb{$abundance} and \verb{$covariates})}
@@ -13,14 +24,22 @@ fit_ldats_crossval(dataset, buffer = 2, k, seed, cpts, nit)
 
 \item{k}{integer number of topics}
 
-\item{seed}{integer seed to use to run LDA}
+\item{lda_seed}{integer seed to use to run LDA}
 
 \item{cpts}{integer number of changepoints}
 
 \item{nit}{integer number of iterations for the changepoint model. 100 is fast but will not find the global optimum, 1000 gets closer but takes time.}
+
+\item{cpt_seed}{integer which seed to use for the cpt model. If NULL (default) randomly drawn.}
+
+\item{return_full}{logical whether to return the model objects or just the logliks. Returning the objects hogs memory. Defaults FALSE.}
+
+\item{return_fits}{logical. If TRUE returns list with fits. If FALSE (default) returns a dataframe of model info and the loglikelihood estimated as the sum (over all test steps) of the mean loglikelihood (over all iterations) for each step.}
+
+\item{summarize_ll}{logical. If TRUE, summary dataframe will have only one row of model info and the loglikelihood estimated as the sum (over all test steps) of the mean loglikelihood (over all iterations) for each step. If FALSE, summary dataframe will return all time steps. FALSE useful for diagnostics.}
 }
 \value{
-list of lists. Each element is the result of running \code{ldats_subset_one} on one subset of the original dataset.
+If return_fits = TRUE, list of lists. Each element is the result of running \code{ldats_subset_one} on one subset of the original dataset. If return_fits = FALSE, returns a dataframe of model info and the mean loglikelihood (over all iterations) for each step.
 }
 \description{
 Top-level wrapper to subset a dataset and fit LDATS to the subsets.

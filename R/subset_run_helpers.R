@@ -221,3 +221,41 @@ get_one_test_loglik <- function(
 
   return(test_loglik)
 }
+
+#' Summarize LDATS fits
+#'
+#' @param ldats_fits a list of fitted models, from running fit_ldats_crossval(return_fits = T)
+#' @param summarize_ll logical, whether to summmarize or not.
+#'
+#' @return data frame
+#' @export
+#'
+#' @importFrom dplyr bind_rows group_by summarize ungroup
+summarize_ldats_fit <- function(ldats_fits, summarize_ll = TRUE) {
+
+  all_summary <- lapply(ldats_fits, FUN = function(ldats_fit) return(ldats_fit$model_info))
+
+  all_summary <- dplyr::bind_rows(all_summary)
+
+  if(summarize_ll) {
+    all_summary <- all_summary  %>%
+      dplyr::group_by(k, lda_seed, cpts, nit) %>%
+      dplyr::summarize(sum_loglik = sum(mean_test_loglik)) %>%
+      dplyr::ungroup()
+
+
+  }
+
+  dataset <- ldats_fits[[1]]$full
+
+  if("metadata" %in% names(dataset)) {
+
+    if("portal_dat" %in% names(dataset$metadata)) {
+      all_summary$dat_name = dataset$metadata$portal_dat
+    } else if ("route" %in% names(dataset$metadata)) {
+      all_summary$dat_name <- paste0("bbs_rtrg_", dataset$metadata$route, "_", dataset$metadata$region)
+    }
+  }
+
+  return(all_summary)
+}

@@ -14,10 +14,11 @@
 #'
 #' @param subsetted_dataset_item Result of subset_data_one, list with elements `$full`, `$train`, `$test`, `$test_timestep`
 #' @param k integer Number of topics for the LDA model.
-#' @param seed integer Seed for running LDA model. Only use even numbers (odd numbers duplicate adjacent evens).
+#' @param lda_seed integer Seed for running LDA model. Only use even numbers (odd numbers duplicate adjacent evens).
 #' @param cpts integer How many changepoints for ts?
 #' @param nit integer How many iterations? (draws from posterior)
 #' @param return_full logical Whether to return fitted model objects and abundance probabilities in addition to logliks. Can be useful for diagnostics, but hogs memory. Default FALSE.
+#' @param cpt_seed integer what seed to use for the cpt model. If NULL (default) randomly draws one and records it as part of the model_info
 #'
 #' @return list. subsetted_dataset_item with the following appended: If `return_full`, fitted_lda; fitted_ts; abund_probabilities, otherwise NULL; test_logliks, model_info
 #' @export
@@ -25,20 +26,25 @@
 #' @importFrom LDATS TS_on_LDA TS_control
 ldats_subset_one <- function(subsetted_dataset_item,
                              k,
-                             seed,
+                             lda_seed,
                              cpts,
                              nit,
-                             return_full = FALSE) {
+                             return_full = FALSE,
+                             cpt_seed = NULL) {
 
 
   # Fit LDA with `k` topics and `seed` to the FULL abundance timeseries
   fitted_lda <- LDA_set_user_seeds(
     document_term_table = subsetted_dataset_item$full$abundance,
     topics = k,
-    seed = seed)[[1]]
+    seed = lda_seed)[[1]]
 
   # Subset the gammas and loglikelihoods for that LDA to match the train/test split for this subset
   subsetted_lda <- subset_lda(fitted_lda, subsetted_dataset_item)
+
+  if(is.null(cpt_seed)) {
+    cpt_seed <- sample.int(100000000, size = 1)
+  }
 
   # Fit TS model with `cpts` and `nit` to the subsetted gammas
   fitted_ts <- LDATS::TS_on_LDA(subsetted_lda,
@@ -46,7 +52,7 @@ ldats_subset_one <- function(subsetted_dataset_item,
                                 timename = "year",
                                 formulas = ~1,
                                 nchangepoints = cpts,
-                                control = LDATS::TS_control(nit = nit))[[1]]
+                                control = LDATS::TS_control(nit = nit, seed = cpt_seed))[[1]]
 
   # Extract predicted multinomial predictions for all years and all draws from posterior
   abund_probabilities <- get_abund_probabilities(
@@ -76,7 +82,16 @@ ldats_subset_one <- function(subsetted_dataset_item,
 
     subsetted_dataset_item$test_logliks <- test_logliks
 
-    subsetted_dataset_item$model_info <- list(k = k, seed = seed, cpts = cpts, nit = nit)
+    subsetted_dataset_item$model_info <- data.frame(
+      k = k,
+      lda_seed = lda_seed,
+      cpts = cpts,
+      cpt_seed = cpt_seed,
+      nit = nit,
+      test_step = subsetted_dataset_item$test_timestep,
+      test_year = subsetted_dataset_item$test$covariates$year[[1]],
+      mean_test_loglik = mean(subsetted_dataset_item$test_logliks))
+
 
   return(subsetted_dataset_item)
 

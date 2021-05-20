@@ -2,36 +2,14 @@ library(cvlt)
 rats <- get_rodents_annual()
 rats_ss <- subset_data_all(rats)
 
-subsetted_dataset_item <- rats_ss[[16]]
+a_subset <- rats_ss[[16]]
 
+buffer= 2
 k = 2
 cpts = 1
-nit = 100
-seed = 7
+nit =100
+seed =4
 
-fitted_lda <- LDA_set_user_seeds(
-  document_term_table = subsetted_dataset_item$full$abundance,
-  topics = k,
-  seed = seed)[[1]]
+#dataset <- rats
 
-subsetted_lda <- subset_lda(fitted_lda, subsetted_dataset_item)
-fitted_ts <- LDATS::TS_on_LDA(subsetted_lda,
-                              document_covariate_table = as.data.frame(subsetted_dataset_item$train$covariates),
-                              timename = "year",
-                              formulas = ~1,
-                              nchangepoints = cpts,
-                              control = LDATS::TS_control(nit = nit))[[1]]
-fitted_lda <- subsetted_lda
-
-abund_probabilities <- get_abund_probabilities(
-  subsetted_dataset_item,
-  subsetted_lda,
-  fitted_ts
-)
-
-
-# Calculate loglikelihood of test timestep for each draw from the posterior
-test_logliks  <- get_test_loglik(
-  subsetted_dataset_item,
-  abund_probabilities
-)
+rats_fits <- fit_ldats_crossval(rats, k = 2, lda_seed = 4, cpts = 1, nit = 50, summarize_ll = F)

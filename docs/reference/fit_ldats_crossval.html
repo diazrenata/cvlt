@@ -112,7 +112,16 @@
     <p>Top-level wrapper to subset a dataset and fit LDATS to the subsets.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>fit_ldats_crossval</span><span class='op'>(</span><span class='va'>dataset</span>, buffer <span class='op'>=</span> <span class='fl'>2</span>, <span class='va'>k</span>, <span class='va'>seed</span>, <span class='va'>cpts</span>, <span class='va'>nit</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>fit_ldats_crossval</span><span class='op'>(</span>
+  <span class='va'>dataset</span>,
+  buffer <span class='op'>=</span> <span class='fl'>2</span>,
+  <span class='va'>k</span>,
+  <span class='va'>seed</span>,
+  <span class='va'>cpts</span>,
+  <span class='va'>nit</span>,
+  return_full <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  return_fits <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -140,6 +149,14 @@
     <tr>
       <th>nit</th>
       <td><p>integer number of iterations for the changepoint model. 100 is fast but will not find the global optimum, 1000 gets closer but takes time.</p></td>
+    </tr>
+    <tr>
+      <th>return_full</th>
+      <td><p>logical whether to return the model objects or just the logliks. Returning the objects hogs memory. Defaults FALSE.</p></td>
+    </tr>
+    <tr>
+      <th>return_fits</th>
+      <td><p>logical. If TRUE returns list with fits. If FALSE (default) returns a dataframe of model info and the loglikelihood estimated as the sum (over all test steps) of the mean loglikelihood (over all iterations) for each step.</p></td>
     </tr>
     </table>
 

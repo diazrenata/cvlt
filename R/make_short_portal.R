@@ -27,7 +27,8 @@ covariates <- dplyr::select(abund_annual, year) %>%
   dplyr::mutate(col2 = "dummycol")
 
 abund_dat <- list(abundance = abundance,
-                 covariates = covariates)
+                 covariates = covariates,
+                 metadata = list(portal_dat = "control_rodents"))
 
 return(abund_dat)
 
@@ -66,7 +67,8 @@ get_plants_annual <- function(census_season = "winter") {
     dplyr::mutate(col2 = "dummycol")
 
   abund_dat <- list(abundance = abundance,
-                    covariates = covariates)
+                    covariates = covariates,
+                    metadata = list(portal_dat = paste0(census_season, "_annuals")))
 
   return(abund_dat)
   }

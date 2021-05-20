@@ -7,10 +7,11 @@
 ldats_subset_one(
   subsetted_dataset_item,
   k,
-  seed,
+  lda_seed,
   cpts,
   nit,
-  return_full = FALSE
+  return_full = FALSE,
+  cpt_seed = NULL
 )
 }
 \arguments{
@@ -18,13 +19,15 @@ ldats_subset_one(
 
 \item{k}{integer Number of topics for the LDA model.}
 
-\item{seed}{integer Seed for running LDA model. Only use even numbers (odd numbers duplicate adjacent evens).}
+\item{lda_seed}{integer Seed for running LDA model. Only use even numbers (odd numbers duplicate adjacent evens).}
 
 \item{cpts}{integer How many changepoints for ts?}
 
 \item{nit}{integer How many iterations? (draws from posterior)}
 
 \item{return_full}{logical Whether to return fitted model objects and abundance probabilities in addition to logliks. Can be useful for diagnostics, but hogs memory. Default FALSE.}
+
+\item{cpt_seed}{integer what seed to use for the cpt model. If NULL (default) randomly draws one and records it as part of the model_info}
 }
 \value{
 list. subsetted_dataset_item with the following appended: If \code{return_full}, fitted_lda; fitted_ts; abund_probabilities, otherwise NULL; test_logliks, model_info
