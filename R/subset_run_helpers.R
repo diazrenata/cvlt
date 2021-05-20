@@ -240,7 +240,8 @@ summarize_ldats_fit <- function(ldats_fits, summarize_ll = TRUE) {
   if(summarize_ll) {
     all_summary <- all_summary  %>%
       dplyr::group_by(k, lda_seed, cpts, nit) %>%
-      dplyr::summarize(sum_loglik = sum(mean_test_loglik)) %>%
+      dplyr::summarize(mean_loglik = mean(mean_test_loglik),
+                       se_loglik = sd(mean_test_loglik) / sqrt(length(unique(test_step)))) %>%
       dplyr::ungroup()
 
 

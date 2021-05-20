@@ -36,7 +36,24 @@ fit_ldats_crossval <- function(dataset, buffer = 2, k, lda_seed, cpts, nit, cpt_
 
 }
 
-fit_multiple_ldats_crossval <- function(dataset, buffer =2, ks, lda_seeds, cpts, nit = 100, cpt_seeds = NULL, return_full = F, return_fits = F, summarize_ll = T) {
+#' Fit multiple LDATS crossval models
+#'
+#' Wrapper function for running `fit_ldats_crossval` with multiple configurations. NOT RECOMMENDED for running at scale - useful for debugging on a local machine. Use a cluster to run at scale.
+#'
+#' @param dataset dataset
+#' @param buffer default 2
+#' @param ks vector of integers, numbers of topics
+#' @param lda_seeds vector of integers, LDA seeds
+#' @param cpts vector of integers, cpts to try
+#' @param nit integer number of iterations
+#' @param cpt_seeds default NULL, or you can pass integers to use as the cpt seed
+#' @param summarize_ll return summarized (TRUE), or for every year?
+#'
+#' @return data frame of model fits for all configuations
+#' @export
+#'
+#' @importFrom dplyr bind_rows
+fit_multiple_ldats_crossval <- function(dataset, buffer =2, ks, lda_seeds, cpts, nit = 100, cpt_seeds = NULL, summarize_ll = T) {
 
 
   ldats_fits <- list()
@@ -46,7 +63,7 @@ fit_multiple_ldats_crossval <- function(dataset, buffer =2, ks, lda_seeds, cpts,
       for(ncpts in cpts) {
 
         ldats_fits[[length(ldats_fits) + 1]] <- fit_ldats_crossval(
-          dataset, buffer = buffer, k = ntopics, lda_seed = lda_seed, cpts = ncpts, nit = nit, cpt_seed = cpt_seeds, return_full = return_full, return_fits = return_fits, summarize_ll = summarize_ll
+          dataset, buffer = buffer, k = ntopics, lda_seed = lda_seed, cpts = ncpts, nit = nit, cpt_seed = cpt_seeds, return_full = F, return_fits = F, summarize_ll = summarize_ll
         )
 
       }
