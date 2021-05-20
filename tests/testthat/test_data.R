@@ -9,10 +9,11 @@ test_that("portal annual works", {
 
   portal_annual <- get_rodents_annual()
 
-  expect_true(length(portal_annual) == 2)
+  expect_true(length(portal_annual) == 3)
 
   expect_true(names(portal_annual)[1] == "abundance")
   expect_true(names(portal_annual)[2] == "covariates")
+  expect_true(names(portal_annual)[3] == "metadata")
 
   expect_true(is.data.frame(portal_annual$abundance))
   expect_true(is.data.frame(portal_annual$covariates))
