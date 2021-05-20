@@ -35,3 +35,27 @@ fit_ldats_crossval <- function(dataset, buffer = 2, k, lda_seed, cpts, nit, cpt_
   return(all_summary)
 
 }
+
+fit_multiple_ldats_crossval <- function(dataset, buffer =2, ks, lda_seeds, cpts, nit = 100, cpt_seeds = NULL, return_full = F, return_fits = F, summarize_ll = T) {
+
+
+  ldats_fits <- list()
+
+  for(ntopics in ks) {
+    for(lda_seed in lda_seeds) {
+      for(ncpts in cpts) {
+
+        ldats_fits[[length(ldats_fits) + 1]] <- fit_ldats_crossval(
+          dataset, buffer = buffer, k = ntopics, lda_seed = lda_seed, cpts = ncpts, nit = nit, cpt_seed = cpt_seeds, return_full = return_full, return_fits = return_fits, summarize_ll = summarize_ll
+        )
+
+      }
+    }
+  }
+
+  ldats_out <- dplyr::bind_rows(ldats_fits)
+
+  return(ldats_out)
+
+
+}
