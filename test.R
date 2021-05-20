@@ -12,4 +12,4 @@ seed =4
 
 #dataset <- rats
 
-rats_fits <- fit_ldats_crossval(rats, k = 2, lda_seed = 4, cpts = 1, nit = 50, summarize_ll = F)
+rats_fits <- fit_ldats_crossval(rats, k = 2, lda_seed = 4, cpts = 1, nit = 50, summarize_ll = T)
