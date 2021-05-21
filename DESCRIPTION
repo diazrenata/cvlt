@@ -20,7 +20,8 @@ Imports:
     portalr,
     magrittr,
     tidyr,
-    topicmodels
+    topicmodels,
+    vegan
 Suggests:
     testthat
 Depends: 
