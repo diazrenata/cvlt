@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Run best-fitting model — run_best_model • cvlt</title>
+<title>Find modal combined location of changepoints — find_modal_cpts • cvlt</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Run best-fitting model — run_best_model" />
-<meta property="og:description" content="Run the LDATS model matching the best configuration for a dataset" />
+<meta property="og:title" content="Find modal combined location of changepoints — find_modal_cpts" />
+<meta property="og:description" content="Find most common JOINT combination of changepoint locations from a TS fit." />
 
 
 
@@ -103,41 +103,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Run best-fitting model</h1>
+    <h1>Find modal combined location of changepoints</h1>
     
-    <div class="hidden name"><code>run_best_model.Rd</code></div>
+    <div class="hidden name"><code>find_modal_cpts.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Run the LDATS model matching the best configuration for a dataset</p>
+    <p>Find most common JOINT combination of changepoint locations from a TS fit.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>run_best_model</span><span class='op'>(</span><span class='va'>dataset</span>, <span class='va'>selected_config</span>, nit <span class='op'>=</span> <span class='fl'>1000</span>, cpt_seed <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>find_modal_cpts</span><span class='op'>(</span><span class='va'>model_fit</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>dataset</th>
-      <td><p>dataset</p></td>
-    </tr>
-    <tr>
-      <th>selected_config</th>
-      <td><p>result of select_cvlt; or dataframe with 1 row of <code>k</code>, <code>lda_seed</code>, <code>cpts</code></p></td>
-    </tr>
-    <tr>
-      <th>nit</th>
-      <td><p>default 1000, nit</p></td>
-    </tr>
-    <tr>
-      <th>cpt_seed</th>
-      <td><p>optionally pass a seed to the cpt model, default NULL</p></td>
+      <th>model_fit</th>
+      <td><p>list with <code>$ts_mod</code></p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>list with dataset, config, LDA, and TS models</p>
+    <p>vector of changepoint locations (years)</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
