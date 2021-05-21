@@ -42,10 +42,10 @@ return(best_options)
 
 #' Run best-fitting model
 #'
-#' Run the LDATS model matching hte best configuration for a dataset
+#' Run the LDATS model matching the best configuration for a dataset
 #'
 #' @param dataset dataset
-#' @param selected_config result of select_cvlt; dataframe with 1 row of `k`, `lda_seed`, `cpts`
+#' @param selected_config result of select_cvlt; or dataframe with 1 row of `k`, `lda_seed`, `cpts`
 #' @param nit default 1000, nit
 #' @param cpt_seed optionally pass a seed to the cpt model, default NULL
 #'

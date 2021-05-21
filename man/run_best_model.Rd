@@ -9,7 +9,7 @@ run_best_model(dataset, selected_config, nit = 1000, cpt_seed = NULL)
 \arguments{
 \item{dataset}{dataset}
 
-\item{selected_config}{result of select_cvlt; dataframe with 1 row of \code{k}, \code{lda_seed}, \code{cpts}}
+\item{selected_config}{result of select_cvlt; or dataframe with 1 row of \code{k}, \code{lda_seed}, \code{cpts}}
 
 \item{nit}{default 1000, nit}
 
@@ -19,5 +19,5 @@ run_best_model(dataset, selected_config, nit = 1000, cpt_seed = NULL)
 list with dataset, config, LDA, and TS models
 }
 \description{
-Run the LDATS model matching hte best configuration for a dataset
+Run the LDATS model matching the best configuration for a dataset
 }
