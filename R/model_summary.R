@@ -29,16 +29,16 @@ summarize_model <- function(model_fit) {
     )
   } else {
 
-  cpt_summary <- model_fit$ts_mod$rho_summary %>%
-    dplyr::mutate(cpt = row.names(model_fit$ts_mod$rho_summary)) %>%
-    dplyr::group_by_all() %>%
-    dplyr::mutate(cpt = unlist(strsplit(cpt, split = "_"))[2]) %>%
-    dplyr::ungroup() %>%
-    dplyr::mutate(nyears = length(unique(model_fit$dataset$covariates$year))) %>%
-    dplyr::mutate(width =`Upper_95%` - `Lower_95%`) %>%
-    dplyr::mutate(width_ratio = width / nyears) %>%
-    dplyr::mutate(modal_estimate = find_modal_cpts(model_fit))
-}
+    cpt_summary <- model_fit$ts_mod$rho_summary %>%
+      dplyr::mutate(cpt = row.names(model_fit$ts_mod$rho_summary)) %>%
+      dplyr::group_by_all() %>%
+      dplyr::mutate(cpt = unlist(strsplit(cpt, split = "_"))[2]) %>%
+      dplyr::ungroup() %>%
+      dplyr::mutate(nyears = length(unique(model_fit$dataset$covariates$year))) %>%
+      dplyr::mutate(width =`Upper_95%` - `Lower_95%`) %>%
+      dplyr::mutate(width_ratio = width / nyears) %>%
+      dplyr::mutate(modal_estimate = find_modal_cpts(model_fit))
+  }
   ts_preds <- modal_ts(model_fit)
 
   cpt_distance <- changepoint_dissimilarity(ts_preds)
@@ -46,8 +46,11 @@ summarize_model <- function(model_fit) {
   cpt_summary <- cpt_summary %>%
     dplyr::left_join(cpt_distance)
 
+  model_r2s <- r2s(model_fit)
+
   model_summary <- model_fit$config %>%
-    dplyr::bind_cols(cpt_summary)
+    dplyr::bind_cols(cpt_summary) %>%
+    dplyr::bind_cols(model_r2s)
 
   return(model_summary)
 
@@ -190,9 +193,9 @@ changepoint_dissimilarity <- function(modal_ts_preds) {
   if(ncpts > 0) {
 
     changepoint_distance <- data.frame(cpt = c(1:(ncpts))) %>%
-    dplyr::mutate(seg_before = cpt,
-                  seg_after = cpt + 1,
-                  dissimilarity = NA)
+      dplyr::mutate(seg_before = cpt,
+                    seg_after = cpt + 1,
+                    dissimilarity = NA)
 
     for(i in 1:nrow(changepoint_distance)) {
       changepoint_distance$dissimilarity[i] <- segment_bc[changepoint_distance$seg_before[i], changepoint_distance$seg_after[i]]
@@ -210,4 +213,81 @@ changepoint_dissimilarity <- function(modal_ts_preds) {
 
   return(changepoint_distance)
 
+}
+
+#' R2s from TS fit
+#'
+#' @param model_fit list with `dataset`, `lda_mod`, `ts_mod`
+#' @param use_proportional whether to use proportional abundances (T) or actual counts (F)
+#'
+#' @return dataframe of model r2 and r2 of just fitting the mean for each species.
+#' @export
+#'
+#' @importFrom dplyr select mutate left_join group_by ungroup
+#' @importFrom tidyr pivot_longer
+r2s <- function(model_fit, use_proportional = TRUE) {
+
+  actual_abundances <- model_fit$dataset$abundance
+
+  if(use_proportional) {
+    actual_abundances <- as.data.frame(actual_abundances)
+
+    for(i in 1:nrow(actual_abundances)) {
+      actual_abundances[i, ] <- actual_abundances[i, ] / sum(actual_abundances[i,])
+    }
+  }
+
+  fitted_abundances <- modal_ts(model_fit) %>%
+    dplyr::select(-seg)
+
+  if(!use_proportional) {
+    fitted_abundances <- as.data.frame(fitted_abundances)
+
+    for(i in 1:nrow(fitted_abundances)) {
+      fitted_abundances[i, ] <- fitted_abundances[i, ] * sum(actual_abundances[i, s])
+
+    }
+  }
+
+
+  actual_abundances <- actual_abundances  %>%
+    dplyr::mutate(year = model_fit$dataset$covariates$year)
+
+  actual_long <- actual_abundances %>%
+    tidyr::pivot_longer(-year, names_to = "species", values_to = "actual")
+
+  fitted_long <- fitted_abundances %>%
+    tidyr::pivot_longer(-year, names_to = "species", values_to = "fitted")
+
+  obspred <- dplyr::left_join(actual_long, fitted_long)
+
+  obspred <- obspred %>%
+    dplyr::mutate(difference = actual - fitted)
+
+
+
+  overall_num <- sum(obspred$difference ^ 2)
+  overall_denom <- sum((obspred$actual - mean(obspred$actual)) ^ 2)
+
+  overall_r2 <- 1 - (overall_num / overall_denom)
+
+  species_mean_abundances <- actual_long %>%
+    dplyr::group_by(species) %>%
+    dplyr::mutate(actual_mean = mean(actual)) %>%
+    dplyr::ungroup() %>%
+    dplyr::mutate(mean_difference = actual - actual_mean)
+
+
+
+  species_num <- sum((species_mean_abundances$mean_difference ^ 2))
+  species_denom <- sum(((species_mean_abundances$actual - mean(species_mean_abundances$actual)) ^ 2))
+
+  species_r2 <- 1 - (species_num / species_denom)
+
+  r2s_df <- data.frame(
+    overall_r2 = overall_r2,
+    species_mean_r2 = species_r2
+  )
+
+  return(r2s_df)
 }
