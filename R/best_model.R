@@ -55,7 +55,12 @@ return(best_options)
 #' @importFrom LDATS TS_on_LDA TS_control
 run_best_model <- function(dataset, selected_config, nit = 1000, cpt_seed = NULL) {
 
+  if(selected_config$k[1] > 0) {
+
   this_lda <- LDA_set_user_seeds(dataset$abundance, topics = selected_config$k[1], seed = selected_config$lda_seed[1])[[1]]
+  } else if(selected_config$k[1] == 0) {
+    this_lda <- fit_means_lda(dataset, lda_seed = selected_config$lda_seed[1])
+  }
 
   if(is.null(cpt_seed)) {
     cpt_seed = sample.int(1000000000, 1)

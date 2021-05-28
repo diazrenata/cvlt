@@ -260,3 +260,49 @@ summarize_ldats_fit <- function(ldats_fits, summarize_ll = TRUE) {
 
   return(all_summary)
 }
+
+#' Make a toy LDA with species means
+#'
+#' @param dataset either a full or subsetted dataset
+#' @param lda_seed seed (shouldn't matter)
+#'
+#' @return LDA with modified beta and gammas
+#' @export
+#'
+fit_means_lda <- function(dataset, lda_seed) {
+
+  if("full" %in% names(dataset)) {
+    term_table <- dataset$full$abundance
+  } else {
+    term_table <- dataset$abundance
+  }
+
+  fitted_lda <- LDA_set_user_seeds(
+    document_term_table = term_table,
+    topics = 2,
+    seed = lda_seed)[[1]]
+
+  annualTotals <- rowSums(term_table)
+
+  propAbunds <- as.data.frame(term_table)
+
+  for(i in 1:nrow(propAbunds)) {
+    propAbunds[i ,] <- propAbunds[i ,]  / annualTotals[i]
+  }
+
+  speciesMeans <- colMeans(propAbunds)
+
+  fake_lda <- fitted_lda
+  fake_beta <- matrix(data = speciesMeans, nrow = 2, ncol = length(speciesMeans), byrow = T)
+
+  colnames(fake_beta) = names(speciesMeans)
+
+  fake_beta <- log(fake_beta)
+
+  fake_gamma <- matrix(data = .5, nrow = nrow(fitted_lda@gamma), ncol = 2)
+
+  fake_lda@beta = fake_beta
+  fake_lda@gamma = fake_gamma
+
+  return(fake_lda)
+}

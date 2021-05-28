@@ -32,13 +32,17 @@ ldats_subset_one <- function(subsetted_dataset_item,
                              return_full = FALSE,
                              cpt_seed = NULL) {
 
-
+if(k > 0) {
   # Fit LDA with `k` topics and `seed` to the FULL abundance timeseries
   fitted_lda <- LDA_set_user_seeds(
     document_term_table = subsetted_dataset_item$full$abundance,
     topics = k,
     seed = lda_seed)[[1]]
+} else if (k == 0) {
 
+  fitted_lda <- fit_means_lda(subsetted_dataset_item, lda_seed)
+
+}
   # Subset the gammas and loglikelihoods for that LDA to match the train/test split for this subset
   subsetted_lda <- subset_lda(fitted_lda, subsetted_dataset_item)
 
