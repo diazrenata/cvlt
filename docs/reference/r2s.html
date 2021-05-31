@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Run LDATs on a dataset using crossvalidation — fit_ldats_crossval • cvlt</title>
+<title>R2s from TS fit — r2s • cvlt</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Run LDATs on a dataset using crossvalidation — fit_ldats_crossval" />
-<meta property="og:description" content="Top-level wrapper to subset a dataset and fit LDATS to the subsets." />
+<meta property="og:title" content="R2s from TS fit — r2s" />
+<meta property="og:description" content="R2s from TS fit" />
 
 
 
@@ -103,76 +103,33 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Run LDATs on a dataset using crossvalidation</h1>
+    <h1>R2s from TS fit</h1>
     
-    <div class="hidden name"><code>fit_ldats_crossval.Rd</code></div>
+    <div class="hidden name"><code>r2s.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Top-level wrapper to subset a dataset and fit LDATS to the subsets.</p>
+    <p>R2s from TS fit</p>
     </div>
 
-    <pre class="usage"><span class='fu'>fit_ldats_crossval</span><span class='op'>(</span>
-  <span class='va'>dataset</span>,
-  buffer <span class='op'>=</span> <span class='fl'>2</span>,
-  <span class='va'>k</span>,
-  <span class='va'>lda_seed</span>,
-  <span class='va'>cpts</span>,
-  <span class='va'>nit</span>,
-  cpt_seed <span class='op'>=</span> <span class='cn'>NULL</span>,
-  return_full <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  return_fits <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  summarize_ll <span class='op'>=</span> <span class='cn'>TRUE</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>r2s</span><span class='op'>(</span><span class='va'>model_fit</span>, use_proportional <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>dataset</th>
-      <td><p>MATSS-style dataset (list with <code>$abundance</code> and <code>$covariates</code>)</p></td>
+      <th>model_fit</th>
+      <td><p>list with <code>dataset</code>, <code>lda_mod</code>, <code>ts_mod</code></p></td>
     </tr>
     <tr>
-      <th>buffer</th>
-      <td><p>number of timesteps to withold on either side of the test timestep, default 2</p></td>
-    </tr>
-    <tr>
-      <th>k</th>
-      <td><p>integer number of topics</p></td>
-    </tr>
-    <tr>
-      <th>lda_seed</th>
-      <td><p>integer seed to use to run LDA</p></td>
-    </tr>
-    <tr>
-      <th>cpts</th>
-      <td><p>integer number of changepoints</p></td>
-    </tr>
-    <tr>
-      <th>nit</th>
-      <td><p>integer number of iterations for the changepoint model. 100 is fast but will not find the global optimum, 1000 gets closer but takes time.</p></td>
-    </tr>
-    <tr>
-      <th>cpt_seed</th>
-      <td><p>integer which seed to use for the cpt model. If NULL (default) randomly drawn.</p></td>
-    </tr>
-    <tr>
-      <th>return_full</th>
-      <td><p>logical whether to return the model objects or just the logliks. Returning the objects hogs memory. Defaults FALSE.</p></td>
-    </tr>
-    <tr>
-      <th>return_fits</th>
-      <td><p>logical. If TRUE returns list with fits. If FALSE (default) returns a dataframe of model info and the loglikelihood estimated as the sum (over all test steps) of the mean loglikelihood (over all iterations) for each step.</p></td>
-    </tr>
-    <tr>
-      <th>summarize_ll</th>
-      <td><p>logical. If TRUE, summary dataframe will have only one row of model info and the loglikelihood estimated as the sum (over all test steps) of the mean loglikelihood (over all iterations) for each step. If FALSE, summary dataframe will return all time steps. FALSE useful for diagnostics.</p></td>
+      <th>use_proportional</th>
+      <td><p>whether to use proportional abundances (T) or actual counts (F)</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>If return_fits = TRUE, list of lists. Each element is the result of running <code>ldats_subset_one</code> on one subset of the original dataset. If return_fits = FALSE, returns a dataframe of model info and the mean loglikelihood (over all iterations) for each step.</p>
+    <p>dataframe of model r2 and r2 of just fitting the mean for each species.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
