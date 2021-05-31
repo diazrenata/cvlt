@@ -35,6 +35,10 @@ highest_ll <- max(best_options$mean_loglik)
 best_options <- best_options %>%
   dplyr::filter(mean_loglik == highest_ll)
 
+if(best_options$k[1] == 0) {
+  best_options <- best_options[1,]
+}
+
 return(best_options)
 
 }
