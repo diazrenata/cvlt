@@ -112,7 +112,7 @@
     <p>Select simplest fit within one SE of best fit</p>
     </div>
 
-    <pre class="usage"><span class='fu'>select_cvlt</span><span class='op'>(</span><span class='va'>cvlt_fits</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>select_cvlt</span><span class='op'>(</span><span class='va'>cvlt_fits</span>, nse <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -120,6 +120,10 @@
     <tr>
       <th>cvlt_fits</th>
       <td><p>result of running fit_ldats_multiple</p></td>
+    </tr>
+    <tr>
+      <th>nse</th>
+      <td><p>number of SEs to allow, default 1</p></td>
     </tr>
     </table>
 
