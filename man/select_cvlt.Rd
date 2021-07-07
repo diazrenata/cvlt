@@ -4,10 +4,12 @@
 \alias{select_cvlt}
 \title{Select simplest good model}
 \usage{
-select_cvlt(cvlt_fits)
+select_cvlt(cvlt_fits, nse = 1)
 }
 \arguments{
 \item{cvlt_fits}{result of running fit_ldats_multiple}
+
+\item{nse}{number of SEs to allow, default 1}
 }
 \value{
 dataframe with specifications for simplest model with loglikelihood within 1 SE of the loglikelihood of the best model

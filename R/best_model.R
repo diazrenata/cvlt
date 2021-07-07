@@ -6,19 +6,20 @@
 #'
 #'
 #' @param cvlt_fits result of running fit_ldats_multiple
+#' @param nse number of SEs to allow, default 1
 #'
 #' @return dataframe with specifications for simplest model with loglikelihood within 1 SE of the loglikelihood of the best model
 #' @export
 #'
 #' @importFrom dplyr filter
-select_cvlt <- function(cvlt_fits) {
+select_cvlt <- function(cvlt_fits, nse = 1) {
 
 best_loglik <- max(cvlt_fits$mean_loglik)
 
 best_model <- dplyr::filter(cvlt_fits, mean_loglik == best_loglik)
 
 best_options <- dplyr::filter(cvlt_fits,
-                                    mean_loglik > (best_model$mean_loglik - best_model$se_loglik))
+                                    mean_loglik > (best_model$mean_loglik - (nse * best_model$se_loglik)))
 
 fewest_cpts <- min(best_options$cpts)
 
